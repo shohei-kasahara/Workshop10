@@ -6,37 +6,35 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView
+import androidx.core.util.Pools
 import androidx.recyclerview.widget.RecyclerView
 
 class MovieAdapter(private val movieList: ArrayList<MovieDataModel>): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        val moviePoster: ImageView = itemView.findViewById(R.id.ivPoster)
-        val movieName: TextView = itemView.findViewById(R.id.tvName)
-        val movieYear : TextView = itemView.findViewById(R.id.tvYear)
+        val ivPoster: ImageView = itemView.findViewById(R.id.ivPoster)
+        val tvName: TextView = itemView.findViewById(R.id.tvName)
+        val tvYear : TextView = itemView.findViewById(R.id.tvYear)
 
 
     }
-    override fun onCreateViewHolder(
-        p0: ViewGroup,
-        p1: Int
-    ): MovieViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(
-        p0: MovieViewHolder,
-        p1: Int
-    ) {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent,false)
+        return MovieViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return movieList.size
     }
 
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val movie = movieList[position]
+        holder.tvName.text = movie.name
+        holder.ivPoster.setImageResource(movie.poster)
+        holder.tvYear.text = movie.year.toString()
 
+    }
 
 
 }
